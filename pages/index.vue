@@ -7,7 +7,7 @@
     <img src="../assets/smiley.png" class="h-[65%] -bottom-[100px] -right-[125px] absolute rotate-[-6deg]" alt="">
     <img src="../assets/asset-speakit-lines.png" class="absolute h-[90%] -bottom-[700px] -left-[250px] transform -rotate-[265deg] scale-x-100" alt="">
     <div class="bg-[#FFD6B5] duration-100 hover:bg-[#f8d1b1] border-[#893f04] border-2 border-10 md:rounded-3xl container mx-auto max-w-full md:max-w-xl translate-y-[25vh] relative">
-      <img src="smiley2.png" class="-left-10 -top-7 absolute h-1/4 -rotate-[24deg]" alt="">
+      <img src="../assets/smiley2.png" class="-left-10 -top-7 absolute h-1/4 -rotate-[24deg]" alt="">
       <div class="text-center font-bold text-3xl pt-5">
         <h1>Type in what you want to hear! </h1>
       </div>
