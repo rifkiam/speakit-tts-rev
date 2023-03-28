@@ -1,9 +1,18 @@
 <template>
-  <div class="bg-[url('assets/bg.jpg')] bg-cover min-h-screen bg-no-repeat">
-    <div class="text-center h-0 font-bold text-3xl translate-y-[20vh]">Type in what you want to hear!</div><br>
-    <div class="bg-gradient-to-tr from-blue-500 to-blue-300 border-10 md:rounded-3xl container mx-auto max-w-full md:max-w-xl translate-y-[25vh]">
-      <div class="py-8 px-10">
-        <input id="text" class="p-5 min-w-full text-center border-[5px] rounded-xl bg-blue-300 border-blue-300 focus:border-blue-200 focus:outline-none placeholder:text-gray-500" type="text" placeholder="Say something!" v-model="text"><br>
+  <div class="bg-[#faf4e4] bg-cover min-h-screen bg-no-repeat relative overflow-hidden">
+    <!-- <img src="displacespeakit.png" class="absolute w-[36%] mx-auto translate-x-[66vh] translate-y-7" alt=""> -->
+    <img src="displacespeakit.png" class="w-[36%] mx-auto -mb-28 mt-10" alt="">
+    <!-- <div class="text-center h-0 font-bold text-3xl translate-y-[20vh]">Type in what you want to hear!</div><br> -->
+    <img src="splash.png" class="absolute h-[85%] -top-[400px] -left-[680px] transform -rotate-[80deg]" alt="">
+    <img src="smiley.png" class="h-[65%] -bottom-[100px] -right-[125px] absolute rotate-[-6deg]" alt="">
+    <img src="asset-speakit-lines.png" class="absolute h-[90%] -bottom-[700px] -left-[250px] transform -rotate-[265deg] scale-x-100" alt="">
+    <div class="bg-[#FFD6B5] duration-100 hover:bg-[#f8d1b1] border-[#893f04] border-2 border-10 md:rounded-3xl container mx-auto max-w-full md:max-w-xl translate-y-[25vh] relative">
+      <img src="smiley2.png" class="-left-10 -top-7 absolute h-1/4 -rotate-[24deg]" alt="">
+      <div class="text-center font-bold text-3xl pt-5">
+        <h1>Type in what you want to hear! </h1>
+      </div>
+      <div class="py-6 px-10">
+        <input id="text" class="p-5 min-w-full text-center border-[5px] rounded-xl bg-[#a1b08f] border-[#7e8a72] transition duration-200 focus:border-[#67725c] focus:outline-none placeholder:text-gray-600" type="text" placeholder="Say something!" v-model="text"><br>
         <div class="text-center font-medium h-0 text-xl mt-6">Choose the source and destination language!</div>
         <div class="flex justify-center space-x-4 mt-5">
           <div>
@@ -27,14 +36,14 @@
           </div>
         </div><br>
         <div class="flex justify-center space-x-4 pt-2">
-          <button type="submit" @click="makeSound()" class=" bg-stone-100 shadow-2xl rounded-xl font-semibold px-3 py-2 hover:bg-slate-300 duration-250">Speak!</button>
-          <button type="submit" @click="translateSpeak()" class="bg-stone-100 rounded-xl font-semibold px-3 py-2 hover:bg-slate-300 duration-250">Translate and Speak!</button>
-          <button type="submit" @click="translateText()" class="bg-stone-100 shadow-2xl rounded-xl font-semibold px-3 py-2 hover:bg-slate-300 duration-250">Translate!</button>
+          <button type="submit" @click="makeSound()" class=" bg-[#a1b08f] shadow-2xl rounded-xl font-semibold px-3 py-2 hover:bg-[#909987] transition duration-250">Speak!</button>
+          <button type="submit" @click="translateSpeak()" class="bg-[#a1b08f] rounded-xl font-semibold px-3 py-2 hover:bg-[#909987] transition duration-250">Translate and Speak!</button>
+          <button type="submit" @click="translateText()" class="bg-[#a1b08f] shadow-2xl rounded-xl font-semibold px-3 py-2 hover:bg-[#909987] transition duration-250">Translate!</button>
         </div>
         <div class="mb-3" id="result">
-          <section id="translate" :class="{ 'translate-y-[1vh]': true, 'bg-stone-100': viewTranslate, 'shadow-2xl': viewTranslate, 'border-[2px]': viewTranslate, 'rounded-xl': true, 'text-center': true , 'py-1': true, 'px-2': true }"></section>
-          <section id="warning" :class="{ 'translate-y-[1vh]': true, 'bg-stone-100': viewWarning, 'shadow-2xl': viewWarning, 'border-[2px]': viewWarning, 'rounded-xl': true, 'text-center': true , 'py-1': true, 'px-2': true }"></section>
-          <button @click="download" id="download" :class="{ 'translate-y-[1vh]': true, 'visible': viewDownload, 'text-transparent': !viewDownload, 'bg-stone-100': viewDownload, 'shadow-2xl': viewDownload, 'border-[2px]': viewDownload, 'rounded-xl': true, 'text-center': true , 'py-1': true, 'px-2': true }">Download</button>
+          <section id="translate" :class="{ 'translate-y-[1vh]': true, 'bg-[#a1b08f]': viewTranslate, 'shadow-2xl': viewTranslate, 'rounded-xl': true, 'text-center': true , 'py-1': true, 'px-2': true }"></section>
+          <section id="warning" :class="{ 'translate-y-[1vh]': true, 'bg-[#a1b08f]': viewWarning, 'shadow-2xl': viewWarning, 'rounded-xl': true, 'text-center': true , 'py-1': true, 'px-2': true }"></section>
+          <button @click="download" id="download" :class="{ 'translate-y-[1vh]': true, 'visible': viewDownload, 'text-transparent': !viewDownload, 'bg-[#a1b08f]': viewDownload, 'shadow-2xl': viewDownload, 'rounded-xl': true, 'text-center': true , 'py-1': true, 'px-2': true }">Download</button>
           <!-- <audio id="result" controls></audio> -->
         </div>
 
@@ -188,36 +197,36 @@ import translate from 'translate';
       },
       generateAudioDownload(lang, voice) {
         navigator.mediaDevices.getUserMedia({ audio: true })
-        .then((stream) => {
+        .then(async (stream) => {
           const mediaRecorder = new MediaRecorder(stream);
           const audioData = [];
           mediaRecorder.addEventListener('dataavailable', (event) => {
             audioData.push(event.data);
           });
+          mediaRecorder.addEventListener('stop', () => {
+            const blob = new Blob(audioData, { type: 'audio/wav' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'speech.wav';
+            document.body.appendChild(link);
+            link.click();
+            setTimeout(() => {
+              URL.revokeObjectURL(url);
+              document.body.removeChild(link);
+            }, 0);
+          });
+          mediaRecorder.start();
           window.speechSynthesis.speak(this.utteranceToProcess);
-            mediaRecorder.addEventListener('stop', () => {
-              const blob = new Blob(audioData, { type: 'audio/wav' });
-              const url = URL.createObjectURL(blob);
-              const link = document.createElement('a');
-              link.href = url;
-              link.download = 'speech.wav';
-              document.body.appendChild(link);
-              link.click();
-              setTimeout(() => {
-                URL.revokeObjectURL(url);
-                document.body.removeChild(link);
-              }, 0);
-            });
-            mediaRecorder.start();
-            this.utteranceToProcess.addEventListener('end', () => {
+
+            await this.utteranceToProcess.addEventListener('end', () => {
+              setTimeout(() => {}, 1000);
               mediaRecorder.stop();
             });
           })
           .catch((error) => {
             console.error('Failed to get user media', error);
           });
-
-
       }
     },
   }
