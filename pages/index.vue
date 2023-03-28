@@ -1,11 +1,11 @@
 <template>
   <div class="bg-[#faf4e4] bg-cover min-h-screen bg-no-repeat relative overflow-hidden">
     <!-- <img src="displacespeakit.png" class="absolute w-[36%] mx-auto translate-x-[66vh] translate-y-7" alt=""> -->
-    <img src="displacespeakit.png" class="w-[36%] mx-auto -mb-28 mt-10" alt="">
+    <img src="../assets/displacespeakit.png" class="w-[36%] mx-auto -mb-28 mt-10" alt="">
     <!-- <div class="text-center h-0 font-bold text-3xl translate-y-[20vh]">Type in what you want to hear!</div><br> -->
-    <img src="splash.png" class="absolute h-[85%] -top-[400px] -left-[680px] transform -rotate-[80deg]" alt="">
-    <img src="smiley.png" class="h-[65%] -bottom-[100px] -right-[125px] absolute rotate-[-6deg]" alt="">
-    <img src="asset-speakit-lines.png" class="absolute h-[90%] -bottom-[700px] -left-[250px] transform -rotate-[265deg] scale-x-100" alt="">
+    <img src="../assets/splash.png" class="absolute h-[85%] -top-[400px] -left-[680px] transform -rotate-[80deg]" alt="">
+    <img src="../assets/smiley.png" class="h-[65%] -bottom-[100px] -right-[125px] absolute rotate-[-6deg]" alt="">
+    <img src="../assets/asset-speakit-lines.png" class="absolute h-[90%] -bottom-[700px] -left-[250px] transform -rotate-[265deg] scale-x-100" alt="">
     <div class="bg-[#FFD6B5] duration-100 hover:bg-[#f8d1b1] border-[#893f04] border-2 border-10 md:rounded-3xl container mx-auto max-w-full md:max-w-xl translate-y-[25vh] relative">
       <img src="smiley2.png" class="-left-10 -top-7 absolute h-1/4 -rotate-[24deg]" alt="">
       <div class="text-center font-bold text-3xl pt-5">
