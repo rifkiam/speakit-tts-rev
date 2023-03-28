@@ -21,6 +21,8 @@
               <option value="id-ID">ID</option>
               <option value="es-ES">ES</option>
               <option value="ja-JP">JP</option>
+              <option value="ru-RU">RU</option>
+              <option value="fr-FR">FR</option>
             </select>
           </div>
           <div>
@@ -32,6 +34,8 @@
               <option value="id-ID">ID</option>
               <option value="es-ES">ES</option>
               <option value="ja-JP">JP</option>
+              <option value="ru-RU">RU</option>
+              <option value="fr-FR">FR</option>
             </select>
           </div>
         </div><br>
