@@ -45,14 +45,15 @@
           <button type="submit" @click="translateText()" class="bg-[#a1b08f] shadow-2xl rounded-xl font-semibold px-3 py-2 hover:bg-[#909987] transition duration-250">Translate!</button>
         </div>
         <div class="mb-3" id="result">
-          <section id="translate" :class="{ 'translate-y-[1vh]': true, 'bg-[#a1b08f]': viewTranslate, 'shadow-2xl': viewTranslate, 'rounded-xl': true, 'text-center': true , 'py-1': true, 'px-2': true }"></section>
+          <section id="translate" :class="{ 'translate-y-[1vh]': true, 'bg-[#a1b08f]': viewTranslate, 'shadow-2xl': viewTranslate, 'rounded-xl': true, 'text-center': true , 'py-1': true, 'px-2': true, 'mb-4': true }"></section>
           <section id="warning" :class="{ 'translate-y-[1vh]': true, 'bg-[#a1b08f]': viewWarning, 'shadow-2xl': viewWarning, 'rounded-xl': true, 'text-center': true , 'py-1': true, 'px-2': true }"></section>
-          <button @click="download" id="download" :class="{ 'translate-y-[1vh]': true, 'visible': viewDownload, 'text-transparent': !viewDownload, 'bg-[#a1b08f]': viewDownload, 'shadow-2xl': viewDownload, 'rounded-xl': true, 'text-center': true , 'py-1': true, 'px-2': true }">Download</button>
+          <a @click="downloadRes" id="download" :class="{ 'translate-y-[1vh]': true, 'visible': viewDownload, 'text-transparent': !viewDownload, 'bg-[#a1b08f]': viewDownload, 'shadow-2xl': viewDownload, 'rounded-xl': true, 'text-center': true , 'py-1': true, 'px-2': true, 'hover:cursor-pointer': true }">Download</a>
           <!-- <audio id="result" controls></audio> -->
         </div>
 
       </div>
     </div>
+    <a id="temp" hidden></a>
   </div>
 </template>
 
@@ -109,7 +110,7 @@ import translate from 'translate';
 
           window.speechSynthesis.speak(utterance);
           this.viewDownload = true
-          this.downloadAu();
+          // this.downloadAu();
         }
       },
       async translateText() {
@@ -193,44 +194,81 @@ import translate from 'translate';
           // this.downloadAu();
         }
       },
-      downloadAu() {
-        
-      },
-      async download() {
-        this.generateAudioDownload(this.utteranceToProcess.lang, this.utteranceToProcess.voice);
-      },
-      generateAudioDownload(lang, voice) {
-        navigator.mediaDevices.getUserMedia({ audio: true })
-        .then(async (stream) => {
-          const mediaRecorder = new MediaRecorder(stream);
-          const audioData = [];
-          mediaRecorder.addEventListener('dataavailable', (event) => {
-            audioData.push(event.data);
-          });
-          mediaRecorder.addEventListener('stop', () => {
-            const blob = new Blob(audioData, { type: 'audio/wav' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'speech.wav';
-            document.body.appendChild(link);
-            link.click();
-            setTimeout(() => {
-              URL.revokeObjectURL(url);
-              document.body.removeChild(link);
-            }, 0);
-          });
-          mediaRecorder.start();
-          window.speechSynthesis.speak(this.utteranceToProcess);
+      // async download() {
+      //   this.generateAudioDownload(this.utteranceToProcess.lang, this.utteranceToProcess.voice);
+      // },
+      // generateAudioDownload(lang, voice) {
+      //   navigator.mediaDevices.getUserMedia({ audio: true })
+      //   .then(async (stream) => {
+      //     const mediaRecorder = new MediaRecorder(stream);
+      //     const audioData = [];
+      //     mediaRecorder.addEventListener('dataavailable', (event) => {
+      //       audioData.push(event.data);
+      //     });
+      //     mediaRecorder.addEventListener('stop', () => {
+      //       const blob = new Blob(audioData, { type: 'audio/wav' });
+      //       const url = URL.createObjectURL(blob);
+      //       const link = document.createElement('a');
+      //       link.href = url;
+      //       link.download = 'speech.wav';
+      //       document.body.appendChild(link);
+      //       link.click();
+      //       setTimeout(() => {
+      //         URL.revokeObjectURL(url);
+      //         document.body.removeChild(link);
+      //       }, 0);
+      //     });
+      //     mediaRecorder.start();
+      //     window.speechSynthesis.speak(this.utteranceToProcess);
 
-            await this.utteranceToProcess.addEventListener('end', () => {
-              setTimeout(() => {}, 1000);
-              mediaRecorder.stop();
-            });
+      //       await this.utteranceToProcess.addEventListener('end', () => {
+      //         setTimeout(() => {}, 1000);
+      //         mediaRecorder.stop();
+      //       });
+      //     })
+      //     .catch((error) => {
+      //       console.error('Failed to get user media', error);
+      //     });
+      // },
+      async downloadRes(chat) {
+
+        let choosedVoice = null;
+        // const voiceList = this.voiceList
+        let inputVoice = null
+        // if(chat.person == 1) inputVoice = this.input.voice.first
+        // else inputVoice = this.input.voice.second
+        // voiceList.forEach(voice => {
+        //   if(voice.name == inputVoice ) choosedVoice = voice
+        // })
+        const tts = window.speechSynthesis
+        const voice = this.utteranceToProcess
+        // voice.voice = choosedVoice
+        // console.log(voice)
+        navigator.mediaDevices
+          .getUserMedia({ audio: true })
+          .then((stream) => {
+            const mediaRecorder = new MediaRecorder(stream)
+            const audioData = []
+            mediaRecorder.addEventListener('dataavailable', (event) => {
+              audioData.push(event.data)
+            })
+            mediaRecorder.addEventListener('stop', () => {
+              const blob = new Blob(audioData, { type: 'audio/wav' })
+              const url = URL.createObjectURL(blob)
+              const link = document.getElementById('temp')
+              link.href = url
+              link.download = 'synthesized-audio.wav'
+              link.textContent = link.download
+              console.log(link)
+              link.click()
+            })
+            mediaRecorder.start()
+            voice.addEventListener('end', () => {
+              console.log('end')
+              mediaRecorder.stop()
+            })
+            speechSynthesis.speak(voice)
           })
-          .catch((error) => {
-            console.error('Failed to get user media', error);
-          });
       }
     },
   }
